@@ -11,13 +11,13 @@ public class GeneralInformationPage extends BasePage{
         PageFactory.initElements(Driver.get(), this);
     }
 
-    @FindBy(css = ".user-name")
+    @FindBy(css = "div.pull-left>h1.user-name")
     public WebElement personalFullName;
 
-    @FindBy(xpath = "//a[contains(@href, 'mailto:')]")
+    @FindBy(css = "a.email")
     public WebElement personalEmail;
 
-    @FindBy(xpath = "//a[contains(@href, 'tel:')]")
+    @FindBy(css = "a.phone")
     public WebElement personalPhone;
 
 }

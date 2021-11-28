@@ -8,23 +8,26 @@ import org.openqa.selenium.support.PageFactory;
 
 public class ContactsPage extends BasePage{
 
+    /*
     public ContactsPage() {
         PageFactory.initElements(Driver.get(), this);
     }
+    //Since we extend the BasePage and BasePage have the same constructor, we do not need to put this
+    constructor here explicitly..
+     */
 
-    public void clickPersonalMail(String emailName){
-        String mailLocator = "//*[contains(text(), '" + emailName +  "')][@data-column-label='Email']";
-        try {
-            BrowserUtils.waitForClickablility(By.xpath(mailLocator), 5);
-            WebElement mailElement = Driver.get().findElement(By.xpath(mailLocator));
-            Driver.get().findElement(By.xpath(mailLocator)).click();
-        } catch (Exception e) {
-            BrowserUtils.clickWithTimeOut(Driver.get().findElement(By.xpath(mailLocator)),  5);
-        }
+    public WebElement getContactEmail(String email){
+        String xPath = "//td[contains(text(), '" + email +  "')][@data-column-label='Email']";
+        return Driver.get().findElement(By.xpath(xPath));
     }
 
-    /**
-     *
+    /*
+    If we do not use singleton design model (Driver.get()), we should fix our method like this >
+    public WebElement getContactEmail(WebDriver driver, String email){
+        String xPath = "//td[contains(text(), '" + email +  "')][@data-column-label='Email']";
+        return driver.findElement(By.xpath(xPath));
+    }
+    Of course, at the beginning, we should have constructor
      */
 
 }

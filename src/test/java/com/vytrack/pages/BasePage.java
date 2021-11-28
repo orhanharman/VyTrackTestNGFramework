@@ -13,12 +13,19 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public abstract class BasePage {
 
+    public BasePage() {
+        PageFactory.initElements(Driver.get(), this);
+    }
+
     @FindBy(css = "div[class='loader-mask shown']")
     @CacheLookup
     protected WebElement loaderMask;
 
     @FindBy(css = "h1[class='oro-subtitle']")
     public WebElement pageSubTitle;
+
+    @FindBy(xpath = "//div[contains(text(),'Option')]")
+    public WebElement pageSubtitleOption;
 
     @FindBy(css = "#user-menu > a")
     public WebElement userName;
@@ -29,9 +36,6 @@ public abstract class BasePage {
     @FindBy(linkText = "My User")
     public WebElement myUser;
 
-    public BasePage() {
-        PageFactory.initElements(Driver.get(), this);
-    }
 
     /**
      * @return page name, for example: Dashboard
@@ -45,12 +49,12 @@ public abstract class BasePage {
 
     /**
      * Waits until loader screen present. If loader screen will not pop up at all,
-     * NoSuchElementException will be handled  bu try/catch block
+     * NoSuchElementException will be handled by try/catch block
      * Thus, we can continue in any case.
      */
     public void waitUntilLoaderScreenDisappear() {
         try {
-            WebDriverWait wait = new WebDriverWait(Driver.get(), 5);
+            WebDriverWait wait = new WebDriverWait(Driver.get(), 10);
             wait.until(ExpectedConditions.invisibilityOf(loaderMask));
         } catch (Exception e) {
             e.printStackTrace();
